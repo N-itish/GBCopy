@@ -1,10 +1,14 @@
 package com.nitish.DataStorage;
 
+
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 
 public class DataStore {
-	public static String source;
-	public static String destination;
-	public static ArrayList<String> FilePaths = new ArrayList<>();
-}
+	//TODO: need to add the source file location
+	public static String source = "E:\\test";
+	public static String destination = "G:\\test\\";
+	//--Testing "C:\\Users\\Lenovo\\Desktop\\test\\";
+	//This arrayList contains all the filePaths
+	public static List<String> filePaths = new ArrayList<>();
+	}
