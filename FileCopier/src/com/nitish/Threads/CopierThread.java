@@ -3,41 +3,56 @@ import com.nitish.DataStorage.DataStore;
 import com.nitish.MainProgram.CopyFunctions;
 
 public class CopierThread extends Thread{
-	//
-	private int totalFileSize;
+	//This is the total chunk of files given to a thread
+	private int fileChunks;
 	//The indicator is used to distinguish the two threads 
+	//And which chunks of files to write
 	private int indicator;
+	private int start;
+	private int end;
 	private CopyFunctions copier = new CopyFunctions(DataStore.destination);
 	public CopierThread() {
 		
 	}
-	public CopierThread(int indicator, int fileListNo){
-		this.totalFileSize = fileListNo;
+	public CopierThread(int indicator, int fileChunks){
+		this.fileChunks = fileChunks;
 		this.indicator = indicator;
 	}
 	public void run() {
-		//This is for thread 1
 		if(indicator == 0)
 		{
-			System.out.println(Thread.currentThread().getName() + " has Started!!");
-			for(int i = 0;i<totalFileSize;i++)
+			start = 0;
+			end = fileChunks;
+			System.out.println("Thread:"+Thread.currentThread().getName()+" "+start+ "--"  + end);
+			for(int i = start;i<=end; i++)
 			{
-				System.out.println(Thread.currentThread().getName() + " "+DataStore.filePaths.get(i));
+				System.out.println(Thread.currentThread().getName()+" "+DataStore.filePaths.get(i));
 				copier.copyFiles(DataStore.filePaths.get(i));
 			}
-			
 		}
-		//This is for thread 2
-		else if(indicator == 1)				
+		else if(indicator == 7)
 		{
-			System.out.println(Thread.currentThread().getName() + " has Started!!");
-			for(int i = totalFileSize+1;i<DataStore.filePaths.size();i++)
+			start = fileChunks*indicator+1;
+			end  = DataStore.filePaths.size();
+			System.out.println("Thread:"+Thread.currentThread().getName()+" "+start+ "--"  + end);
+			for(int i = start;i<end; i++)
 			{
-				System.out.println(Thread.currentThread().getName() + " "+DataStore.filePaths.get(i));
+				System.out.println(Thread.currentThread().getName()+" "+DataStore.filePaths.get(i));
 				copier.copyFiles(DataStore.filePaths.get(i));
 				
 			}
-			
+		}
+		else
+		{
+			start = fileChunks*indicator+1;
+			end = (start-1) +fileChunks;
+			System.out.println("Thread:"+Thread.currentThread().getName()+" "+start+ "--"  + end);
+			for(int i = start;i<=end; i++)
+			{
+				System.out.println(Thread.currentThread().getName()+" "+DataStore.filePaths.get(i));
+				copier.copyFiles(DataStore.filePaths.get(i));
+				
+			}
 		}
 	}
 }

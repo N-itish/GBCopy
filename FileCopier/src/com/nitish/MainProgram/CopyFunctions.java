@@ -21,7 +21,7 @@ public class CopyFunctions {
 					if(file.exists()) {
 						InputStream is = new FileInputStream(file);
 						OutputStream os = new FileOutputStream(new File(destination+"/"+file.getName()));
-						byte[] bytechunk = new byte[1024];
+						byte[] bytechunk = new byte[2048];
 						int length;
 						while((length = is.read(bytechunk)) != -1) 
 						{
