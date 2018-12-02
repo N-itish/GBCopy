@@ -1,5 +1,7 @@
 package com.nitish.MainProgram;
 import java.io.File;
+import java.io.IOException;
+
 import com.nitish.DataStorage.DataStore;
 import com.nitish.Threads.CopierThread;
 
@@ -15,7 +17,12 @@ public class Main {
 		System.out.println("Copying");
 		//Selecting the source file
 		File Sourcefile = new File(source);
-		fileLocations.getAllFileLocation(Sourcefile);
+		try {
+			fileLocations.getAllFileLocation(Sourcefile);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//Checking if there are more than 8 file so we don't waste the threads 
 		if(DataStore.filePaths.size() >= 8)
 		{

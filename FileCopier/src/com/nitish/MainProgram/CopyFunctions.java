@@ -19,8 +19,10 @@ public class CopyFunctions {
 			{
 				try {
 					if(file.exists()) {
+						String newDestinationDirectory = fileName.replaceAll("^[a-zA-Z]:","");
+						System.out.println(destination+newDestinationDirectory);
 						InputStream is = new FileInputStream(file);
-						OutputStream os = new FileOutputStream(new File(destination+"/"+file.getName()));
+						OutputStream os = new FileOutputStream(new File(destination+newDestinationDirectory));
 						byte[] bytechunk = new byte[2048];
 						int length;
 						while((length = is.read(bytechunk)) != -1) 
